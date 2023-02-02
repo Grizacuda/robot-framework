@@ -279,4 +279,4 @@ It is anyway mandatory to extend the container image to install the specific dat
 
 ## Please contribute!
 
-Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/ppodgorsek/docker-robot-framework/issues).
+Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/Grizacuda/robot-framework/issues).
