@@ -41,7 +41,7 @@ This container can be run using the following command:
     docker run \
         -v <local path to the reports' folder>:/opt/robotframework/reports:Z \
         -v <local path to the test suites' folder>:/opt/robotframework/tests:Z \
-        ppodgorsek/robot-framework:<version>
+        grizacuda/robot-framework:<version>
 
 ### Switching browsers
 
@@ -70,7 +70,7 @@ It is possible to parallelise the execution of your test suites. Simply define t
 
     docker run \
         -e ROBOT_THREADS=4 \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 By default, there is no parallelisation.
 
@@ -81,7 +81,7 @@ When using parallelisation, it is possible to pass additional [pabot options](ht
     docker run \
         -e ROBOT_THREADS=4 \
         -e PABOT_OPTIONS="--testlevelsplit" \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 ### Passing additional options
 
@@ -89,7 +89,7 @@ RobotFramework supports many options such as `--exclude`, `--variable`, `--logle
 
     docker run \
         -e ROBOT_OPTIONS="--loglevel DEBUG" \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 ### Testing emails
 
@@ -105,7 +105,7 @@ To set the timezone used inside the Docker image, you can set the `TZ` environme
 
     docker run \
         -e TZ=America/New_York \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 ## Security consideration
 
@@ -113,7 +113,7 @@ By default, containers are implicitly run using `--user=1000:1000`, please remem
 
     docker run \
         --user=1001:1001 \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 Remember that that UID/GID should be allowed to access the mounted volumes in order to read the test suites and to write the output.
 
@@ -133,7 +133,7 @@ It is possible to run the project from within a Jenkins pipeline by relying on t
         stages {
             stage('Functional regression tests') {
                 steps {
-                    sh "docker run --shm-size=1g -e BROWSER=firefox -v $WORKSPACE/robot-tests:/opt/robotframework/tests:Z -v $WORKSPACE/robot-reports:/opt/robotframework/reports:Z ppodgorsek/robot-framework:latest"
+                    sh "docker run --shm-size=1g -e BROWSER=firefox -v $WORKSPACE/robot-tests:/opt/robotframework/tests:Z -v $WORKSPACE/robot-reports:/opt/robotframework/reports:Z grizacuda/robot-framework:latest"
                 }
             }
         }
@@ -146,7 +146,7 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
         stages {
             stage('Functional regression tests') {
                 agent { docker {
-                    image 'ppodgorsek/robot-framework:latest'
+                    image 'grizacuda/robot-framework:latest'
                     args '--shm-size=1g -u root' }
                 }
                 environment {
@@ -175,7 +175,7 @@ It can simply be passed during the execution, such as:
 
     docker run \
         -e ROBOT_TEST_RUN_ID="feature/branch-name" \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 By default, the test run ID is empty.
 
@@ -188,7 +188,7 @@ To upload the report of a test run to an S3 bucket, you need to define the follo
         -e AWS_SECRET_ACCESS_KEY=<your AWS secret> \
         -e AWS_DEFAULT_REGION=<your AWS region e.g. eu-central-1> \
         -e AWS_BUCKET_NAME=<name of your S3 bucket> \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 ## Testing this project
 
@@ -199,14 +199,14 @@ Not convinced yet? Simple tests have been prepared in the `test/` folder, you ca
         -v `pwd`/reports:/opt/robotframework/reports:Z \
         -v `pwd`/test:/opt/robotframework/tests:Z \
         -e BROWSER=chrome \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
     # Using Firefox
     docker run \
         -v `pwd`/reports:/opt/robotframework/reports:Z \
         -v `pwd`/test:/opt/robotframework/tests:Z \
         -e BROWSER=firefox \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 For Windows users who use **PowerShell**, the commands are slightly different:
 
@@ -215,14 +215,14 @@ For Windows users who use **PowerShell**, the commands are slightly different:
         -v ${PWD}/reports:/opt/robotframework/reports:Z \
         -v ${PWD}/test:/opt/robotframework/tests:Z \
         -e BROWSER=chrome \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
     # Using Firefox
     docker run \
         -v ${PWD}/reports:/opt/robotframework/reports:Z \
         -v ${PWD}/test:/opt/robotframework/tests:Z \
         -e BROWSER=firefox \
-        ppodgorsek/robot-framework:latest
+        grizacuda/robot-framework:latest
 
 Screenshots of the results will be available in the `reports/` folder.
 
